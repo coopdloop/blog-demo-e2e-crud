@@ -3,9 +3,18 @@ import {
   pgEnum,
   pgTable,
   serial,
-  uniqueIndex,
   varchar,
 } from "drizzle-orm/pg-core";
+
+// declaring enum in database
+export const TaskStatusEnum = pgEnum("status", [
+  "New",
+  "In Progress",
+  "Closed",
+  "Reopened",
+  "Resolved",
+  "Rejected"
+]);
 
 export const Tasks = pgTable("Tasks", {
   task_id: serial("task_id").primaryKey(),
@@ -16,7 +25,7 @@ export const Tasks = pgTable("Tasks", {
   title: varchar("title", { length: 256 }),
   description: varchar("description", { length: 256 }),
   due_date: varchar("due_date", { length: 256 }),
-  status: varchar("status", { length: 256 }),
+  status: TaskStatusEnum('status')
 });
 
 // declaring enum in database
