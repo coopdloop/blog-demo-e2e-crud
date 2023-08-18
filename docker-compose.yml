@@ -9,8 +9,9 @@ services:
       POSTGRES_USER: my_data
       POSTGRES_PASSWORD: my_data
     ports:
-      - "5432:5432"
+      - "5431:5432"
     volumes:
+      - .docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
       - pg_data:/var/lib/postgresql/data
   
 volumes:
