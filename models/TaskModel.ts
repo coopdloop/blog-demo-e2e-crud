@@ -16,10 +16,8 @@ export const addTask = async (
 ): Promise<TaskApi.createTaskDataApiResponse> => {
   try {
     await db.insert(Tasks).values(task);
-    console.log({ task_data: task, success: true, error: undefined })
     return { task_data: task, success: true, error: undefined };
   } catch (err: any) {
-    console.log(err)
     return { success: false, error: err };
   }
 };
@@ -33,6 +31,15 @@ export const getTask = async (
       .from(Tasks)
       .where(eq(Tasks.task_id, task.task_id));
     return { ...task_data, success: true, error: undefined };
+  } catch (err: any) {
+    return { success: false, error: err };
+  }
+};
+
+export const getTasks = async (): Promise<TaskApi.getTasksDataApiResponse> => {
+  try {
+    const tasks_data = await db.select().from(Tasks);
+    return { tasks_data: tasks_data, success: true, error: undefined };
   } catch (err: any) {
     return { success: false, error: err };
   }
