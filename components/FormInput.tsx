@@ -84,7 +84,7 @@ const ProfileForm: React.FC<FormInputProps> = ({ updateSubmittedData }) => {
       body: JSON.stringify(data), // Convert the data to JSON format
     };
     // Make the POST request using the fetch API
-    fetch("http://localhost:3000/api/v1/create-task", requestOptions)
+    fetch("/api/v1/create-task", requestOptions)
       .then((response) => {
         if (!response.ok) {
           toast({

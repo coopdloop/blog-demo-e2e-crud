@@ -38,7 +38,7 @@ const UserTable: React.FC<AssignedTasksProps> = ({ }) => {
 
   const fetchData = async () => {
     const response = await fetch(
-      "http://localhost:3000/api/v1/get-users"
+      "/api/v1/get-users"
     );
     const data = await response.json();
     console.log(response.status, response.url);

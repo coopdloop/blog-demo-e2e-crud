@@ -42,7 +42,7 @@ const ViewTable: React.FC<ViewTableProps> = ({ updatedFormData }) => {
   }, [updatedFormData]); // The empty dependency array ensures this effect runs once, similar to componentDidMount
 
   const fetchData = async () => {
-    const response = await fetch("http://localhost:3000/api/v1/get-tasks");
+    const response = await fetch("/api/v1/get-tasks");
     const data = await response.json();
     console.log(response.status, response.url);
     return data;
