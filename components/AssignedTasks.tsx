@@ -41,7 +41,7 @@ const AssignedTasks: React.FC<AssignedTasksProps> = ({ updatedFormData }) => {
 
   const fetchData = async () => {
     const response = await fetch(
-      "http://localhost:3000/api/v1/get-tasks?user_id=1"
+      "/api/v1/get-tasks?user_id=1"
     );
     const data = await response.json();
     console.log(response.status, response.url);
