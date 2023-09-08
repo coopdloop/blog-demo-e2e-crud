@@ -47,6 +47,9 @@
       ],
       "@/models/*": [
         "./models/*"
+      ],
+      "@/shared/*": [
+        "./shared/*"
       ]
     }
   },

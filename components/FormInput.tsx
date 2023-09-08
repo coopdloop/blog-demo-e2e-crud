@@ -31,40 +31,39 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useForm } from "react-hook-form";
-import { toast } from "./ui/use-toast";
 import { TaskStatusEnum, TaskCategoriesEnum } from "@/db/schema";
 import { useState } from "react";
+import { TasksArray, getTasksDataApiResponse } from "@/types/api/tasks";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 export const formSchema = z.object({
   user_id: z.coerce.number().max(3, {
-    message: "Album name field cannot be more than 12 characters.",
+    message: "User Id cannot be more than 3 characters.",
   }),
-  title: z.string().max(12, {
-    message: "Album name field cannot be more than 12 characters.",
+  title: z.string().max(18, {
+    message: "Task title cannot be more than 18 characters.",
   }),
-  description: z.string().max(12, {
-    message: "Album name field cannot be more than 12 characters.",
+  description: z.string().max(24, {
+    message: "Task description cannot be more than 24 characters.",
   }),
 
-  task_category_name: z.string().max(12, {
-    message: "Album name field cannot be more than 12 characters.",
-  }),
+  task_category_name: z.string(),
 
   due_date: z.date({
     required_error: "A release date is required.",
   }),
-  status: z.string().max(12, {
-    message: "Album name field cannot be more than 12 characters.",
-  }),
+  status: z.string(),
 });
 
 type formSchemaValues = z.infer<typeof formSchema>;
 
 interface FormInputProps {
-  updateSubmittedData: (data: formSchemaValues) => void;
+  updateSubmittedData: (data: TasksArray) => void;
 }
 
-const ProfileForm: React.FC<FormInputProps> = ({ updateSubmittedData}) => {
+const ProfileForm: React.FC<FormInputProps> = ({ updateSubmittedData }) => {
+  const { toast } = useToast();
   const [submittedData, setSubmittedData] = useState<{}>({});
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -75,16 +74,6 @@ const ProfileForm: React.FC<FormInputProps> = ({ updateSubmittedData}) => {
   // 2. Define a submit handler.
 
   function onSubmit(data: formSchemaValues) {
-    setSubmittedData(data)
-    updateSubmittedData(data)
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
     // Define the fetch options, including the method and headers
     const requestOptions: RequestInit = {
       method: "POST",
@@ -98,13 +87,32 @@ const ProfileForm: React.FC<FormInputProps> = ({ updateSubmittedData}) => {
     fetch("http://localhost:3000/api/v1/create-task", requestOptions)
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          toast({
+            variant: "destructive",
+            title: `HTTP error! Status: ${response.status}`,
+            description: `${response.statusText}`,
+            action: <ToastAction altText="Try again">Try again</ToastAction>,
+          });
+          throw new Error();
         }
         return response.json(); // Parse the response JSON
       })
-      .then((data) => {
+      .then((data: getTasksDataApiResponse) => {
+        setSubmittedData(data);
+        toast({
+          title: "You submitted the following values:",
+          description: (
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              <code className="text-white">
+                {JSON.stringify(data.tasks_data, null, 2)}
+              </code>
+            </pre>
+          ),
+        });
         // Handle the response data here
-        console.log("Response Data:", data);
+        updateSubmittedData(data.tasks_data!);
+        console.log("Insert successful into tasks table.");
+        console.log("Response from data insert:", data);
       })
       .catch((error) => {
         // Handle any errors that occurred during the fetch
@@ -161,6 +169,7 @@ const ProfileForm: React.FC<FormInputProps> = ({ updateSubmittedData}) => {
         <FormField
           control={form.control}
           name="status"
+          defaultValue="New"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Status</FormLabel>
@@ -190,7 +199,7 @@ const ProfileForm: React.FC<FormInputProps> = ({ updateSubmittedData}) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Task Category</FormLabel>
-              <Select onValueChange={field.onChange}>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Fullstack" />
@@ -239,9 +248,9 @@ const ProfileForm: React.FC<FormInputProps> = ({ updateSubmittedData}) => {
                     mode="single"
                     selected={field.value}
                     onSelect={(day: Date | undefined) => field.onChange(day!)}
-                    disabled={(date: any) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
+                    // disabled={(date: any) =>
+                    //   date > new Date() || date < new Date("1900-01-01")
+                    // }
                     initialFocus
                   />
                 </PopoverContent>
