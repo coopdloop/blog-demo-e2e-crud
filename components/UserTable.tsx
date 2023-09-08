@@ -6,7 +6,7 @@ import { columns } from "@/components/data-tables/user-table/columns";
 interface AssignedTasksProps {
   updatedFormData: UsersArray;
 }
-const UserTable: React.FC<AssignedTasksProps> = ({ }) => {
+const UserTable: React.FC<AssignedTasksProps> = ({}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState<UsersArray>([]);
   const [rowCount, setRowCount] = useState(0);
@@ -24,7 +24,9 @@ const UserTable: React.FC<AssignedTasksProps> = ({ }) => {
 
       fetchData()
         .then((apiData) => {
-          updateValues(apiData.user_data);
+          // updateValues(apiData.user_data);
+          setTableData(apiData.user_data);
+
           setRowCount(apiData.length);
         })
         .catch((error) => {
@@ -37,19 +39,17 @@ const UserTable: React.FC<AssignedTasksProps> = ({ }) => {
   }); // The empty dependency array ensures this effect runs once, similar to componentDidMount
 
   const fetchData = async () => {
-    const response = await fetch(
-      "/api/v1/get-users"
-    );
+    const response = await fetch("/api/v1/get-users");
     const data = await response.json();
     console.log(response.status, response.url);
     return data;
   };
 
-  const updateValues = (data: UsersArray) => {
-    for (const key in data) {
-      setTableData((prevItems) => [...prevItems, data[key]]);
-    }
-  };
+  // const updateValues = (data: UsersArray) => {
+  //   for (const key in data) {
+  //     setTableData((prevItems) => [...prevItems, data[key]]);
+  //   }
+  // };
   return (
     <>
       {isLoading ? (
