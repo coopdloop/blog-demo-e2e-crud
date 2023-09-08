@@ -22,8 +22,8 @@ const UserTable: React.FC = ({ }) => {
 
       fetchData()
         .then((apiData) => {
-          setTableData([apiData[0]]);
-          // updateValues(apiData.user_data);
+          console.log(apiData);
+          setTableData(apiData.user_data);
           setRowCount(apiData.length);
         })
         .catch((error) => {
