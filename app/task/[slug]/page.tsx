@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { DataTable } from "@/components/data-tables/table-tasks/data-table";
 import { columns } from "@/components/data-tables/table-tasks/columns";
 
-
 export default function Page({ params }: { params: { slug: string } }) {
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState<TasksArray>([]);
@@ -37,12 +36,12 @@ export default function Page({ params }: { params: { slug: string } }) {
     }
     // }
     // Call the fetchData function when the component mounts
-  }, []); // The empty dependency array ensures this effect runs once, similar to componentDidMount
+  }); // The empty dependency array ensures this effect runs once, similar to componentDidMount
 
   const fetchData = async () => {
     console.log(params.slug);
     const response = await fetch(
-      `http://localhost:3000/api/v1/get-task/${params.slug}`
+      `/api/v1/get-task/${params.slug}`
     );
     const data = await response.json();
     console.log(response.status, response.url);

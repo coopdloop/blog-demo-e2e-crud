@@ -34,7 +34,7 @@ const UserTable: React.FC<AssignedTasksProps> = ({ }) => {
     }
     // }
     // Call the fetchData function when the component mounts
-  }, []); // The empty dependency array ensures this effect runs once, similar to componentDidMount
+  }); // The empty dependency array ensures this effect runs once, similar to componentDidMount
 
   const fetchData = async () => {
     const response = await fetch(

@@ -32,7 +32,7 @@ export default function Page({ params }: { params: { slug: string } }) {
     }
     // }
     // Call the fetchData function when the component mounts
-  }, []); // The empty dependency array ensures this effect runs once, similar to componentDidMount
+  }); // The empty dependency array ensures this effect runs once, similar to componentDidMount
 
   const fetchData = async () => {
     const response = await fetch(`/api/v1/get-user/${params.slug}`);
