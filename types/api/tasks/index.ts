@@ -38,6 +38,7 @@ export type getTaskDataApiRequest = z.infer<typeof TaskDataRequest>;
 export type getTaskDataApiResponse = z.infer<typeof TaskDataResponse>;
 export type getTasksDataApiResponse = z.infer<typeof TasksDataResponse>;
 export type createTaskDataApiRequest = z.infer<typeof TaskData>;
+export type taskDataNormalSchema = z.infer<typeof TaskData>;
 export type createTaskDataApiResponse = z.infer<typeof TaskDataResponse>;
 
 const TasksDataArray = z.array(TaskData);
@@ -46,10 +47,14 @@ export type TasksArray = z.infer<typeof TasksDataArray>;
 
 export const UserData = z.object({
   user_id: z.number(),
-  username: z.string(),
-  email: z.string(),
+  username: z.string().nullable(),
+  email: z.string().nullable(),
 });
 
+const UsersDataArray = z.array(UserData);
+
+export type UsersArray = z.infer<typeof UsersDataArray>;
+export type userDataNormalSchema = z.infer<typeof UserData>;
 export const UserDataRequest = z.object({
   user_id: z.number(),
 });
@@ -59,8 +64,13 @@ export const UserDataResponse = z.object({
   success: z.boolean(),
   user_data: UserData.optional(),
 });
-
+export const UsersDataResponse = z.object({
+  error: z.string().optional(),
+  success: z.boolean(),
+  user_data: UserData.array().optional(),
+});
 export type getUserDataApiRequest = z.infer<typeof UserDataRequest>;
 export type getUserDataApiResponse = z.infer<typeof UserDataResponse>;
+export type getUsersDataApiResponse = z.infer<typeof UsersDataResponse>;
 export type createUserDataApiRequest = z.infer<typeof UserData>;
 export type createUserDataApiResponse = z.infer<typeof UserDataResponse>;

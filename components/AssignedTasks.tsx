@@ -1,18 +1,16 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import { TasksArray } from "@/types/api/tasks";
-import { useEffect, useState } from "react";
-import { DataTable } from "@/components/data-tables/table-tasks/data-table";
-import { columns } from "@/components/data-tables/table-tasks/columns";
-
-interface ViewTableProps {
+import { DataTable } from "@/components/data-tables/assigned-tasks/data-table";
+import { columns } from "@/components/data-tables/assigned-tasks/columns";
+interface AssignedTasksProps {
   updatedFormData: TasksArray;
 }
 
-const ViewTable: React.FC<ViewTableProps> = ({ updatedFormData }) => {
+const AssignedTasks: React.FC<AssignedTasksProps> = ({ updatedFormData }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState<TasksArray>([]);
   const [rowCount, setRowCount] = useState(0);
-  const staticRowCount = Array.from({ length: rowCount }, (_, index) => index);
 
   useEffect(() => {
     // Check and see if tableData state is not empty
@@ -42,7 +40,9 @@ const ViewTable: React.FC<ViewTableProps> = ({ updatedFormData }) => {
   }, [updatedFormData]); // The empty dependency array ensures this effect runs once, similar to componentDidMount
 
   const fetchData = async () => {
-    const response = await fetch("http://localhost:3000/api/v1/get-tasks");
+    const response = await fetch(
+      "http://localhost:3000/api/v1/get-tasks?user_id=1"
+    );
     const data = await response.json();
     console.log(response.status, response.url);
     return data;
@@ -53,7 +53,6 @@ const ViewTable: React.FC<ViewTableProps> = ({ updatedFormData }) => {
       setTableData((prevItems) => [...prevItems, data[key]]);
     }
   };
-
   return (
     <>
       {isLoading ? (
@@ -65,4 +64,4 @@ const ViewTable: React.FC<ViewTableProps> = ({ updatedFormData }) => {
   );
 };
 
-export default ViewTable;
+export { AssignedTasks };
