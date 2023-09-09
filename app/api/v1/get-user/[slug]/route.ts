@@ -11,7 +11,7 @@ export async function GET(
     console.log(`Getting User: ${JSON.stringify(user_id)}`);
     console.log("GET /api/v1/get-users");
     // CREATE TASK BY PARAMS
-    const user = await taskModel.getUser(user_id);
+    const user = await taskModel.getUser(user_id.user_id);
     return NextResponse.json({ ...user });
   } catch (error: any) {
     console.log(error);

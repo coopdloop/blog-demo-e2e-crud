@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -29,7 +29,7 @@ export const columns: ColumnDef<taskDataNormalSchema>[] = [
           ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
@@ -79,9 +79,17 @@ export const columns: ColumnDef<taskDataNormalSchema>[] = [
               Copy task ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View task</DropdownMenuItem>
-            <DropdownMenuItem>Delete task</DropdownMenuItem>
-            <DropdownMenuItem>Mark as complete</DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
+              <a href={`/task/${task.task_id}`}>View task</a>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={async () =>
+                await fetch(`/api/v1/delete-task/${task.task_id}`)
+              }
+            >
+              Delete task
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

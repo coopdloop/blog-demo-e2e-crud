@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import * as z from "zod";
 import { cn } from "@/lib/utils";
 
@@ -51,7 +51,7 @@ export const formSchema = z.object({
   task_category_name: z.string(),
 
   due_date: z.date({
-    required_error: "A release date is required.",
+    required_error: "A date is required.",
   }),
   status: z.string(),
 });
@@ -79,9 +79,8 @@ const ProfileForm: React.FC<FormInputProps> = ({ updateSubmittedData }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json", // Indicates that we're sending JSON data
-        // You can add other headers here if needed
       },
-      body: JSON.stringify(data), // Convert the data to JSON format
+      body: JSON.stringify(data), // Convert the data from JSON format
     };
     // Make the POST request using the fetch API
     fetch("/api/v1/create-task", requestOptions)
@@ -245,6 +244,10 @@ const ProfileForm: React.FC<FormInputProps> = ({ updateSubmittedData }) => {
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
+                    numberOfMonths={2}
+                    pagedNavigation
+                    fixedWeeks
+                    ISOWeek
                     mode="single"
                     selected={field.value}
                     onSelect={(day: Date | undefined) => field.onChange(day!)}

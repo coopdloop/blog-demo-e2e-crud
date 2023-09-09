@@ -40,8 +40,11 @@ const AssignedTasks: React.FC<AssignedTasksProps> = ({ updatedFormData }) => {
   }, [updatedFormData]); // The empty dependency array ensures this effect runs once, similar to componentDidMount
 
   const fetchData = async () => {
+    const myUserData = await fetch("/api/v1/me");
+    const myUser = await myUserData.json();
+    // assume one user in request
     const response = await fetch(
-      "/api/v1/get-tasks?user_id=1"
+      `/api/v1/get-tasks?user_id=${myUser[0].user_id}`
     );
     const data = await response.json();
     console.log(response.status, response.url);
