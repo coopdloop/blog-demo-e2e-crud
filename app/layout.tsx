@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import VertNav from "@/components/NavbarVertical";
+import { ThemeProvider } from "@/components/theme-provider";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,9 +20,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex">
+        <div className="flex container">
           <VertNav />
-          {children}
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            <span >
+            {children}
+            </span>
+          </ThemeProvider>
         </div>
         <Toaster />
       </body>

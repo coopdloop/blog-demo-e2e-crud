@@ -8,14 +8,9 @@ export const TaskData = z.object({
   title: z.string().nullable(),
   description: z.string().nullable(),
   due_date: z.string().datetime().nullable(),
-  status: z.enum([
-    "New",
-    "In Progress",
-    "Closed",
-    "Reopened",
-    "Resolved",
-    "Rejected",
-  ]).nullable(),
+  status: z
+    .enum(["New", "In Progress", "Closed", "Reopened", "Resolved", "Rejected"])
+    .nullable(),
 });
 
 export const TaskDataResponse = z.object({

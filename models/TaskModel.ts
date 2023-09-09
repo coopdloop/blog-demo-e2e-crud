@@ -85,13 +85,13 @@ export const addUser = async (
 };
 
 export const getUser = async (
-  user_id: TaskApi.getUserDataApiRequest
+  user_id: number
 ): Promise<TaskApi.getUserDataApiResponse> => {
   try {
     const user_data = await db
       .select()
       .from(Users)
-      .where(eq(Users.user_id, user_id.user_id));
+      .where(eq(Users.user_id, user_id));
     return { ...user_data, success: true, error: undefined };
   } catch (err: any) {
     return { success: false, error: err };

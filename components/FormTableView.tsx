@@ -15,17 +15,23 @@ export default function FormTableView() {
   }
 
   return (
-    <div className="flex flex-col w-full pl-2">
-      <span className="flex justify-center w-full py-2 my-8 flex-wrap">
+    <div className="flex flex-col sm:w-full md:w-full lg:w-full">
+      <span className="flex sm:justify-start md:justify-between lg:justify-center w-full py-2 my-8 flex-wrap">
         <div className="px-8">
-          <h1>Your assigned work</h1>
+          <h1 className="text-2xl">Your assigned work</h1>
           <AssignedTasks updatedFormData={submittedData} />
-          <h1>All users</h1>
+          <Separator/>
+
+          <h1 className="mt-8 text-2xl">All users</h1>
           <UserTable updatedFormData={submittedUserData} />
         </div>
+        <span className="flex gap-8">
+        <Separator orientation="vertical"/>
         <ProfileForm updateSubmittedData={updateSubmittedData} />
+        </span>
       </span>
       <Separator/>
+      <h1 className="mt-8 text-2xl">All tasks</h1>
       <ViewTable updatedFormData={submittedData} />
     </div>
   );
