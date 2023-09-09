@@ -16,7 +16,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   }
 
   return (
-    <div className="h-full border-r-4 w-fit pr-4 sm:hidden">
+    <div className="h-full border-r-4 w-fit pr-4">
       <ul className="justify-start flex flex-col h-full pt-4 text-center text-lg text-white">
         <li className="py-2">
           <a href="/">Home</a>
@@ -88,12 +88,12 @@ const VertNav: FC = ({}) => {
   };
 
   return (
-    <div className="">
-      <div className="left-0 relative w-1/6 lg:hidden">
+    <div >
+      <div className="left-0 w-1/6 lg:hidden  relative">
         <Hamburger
           toggled={isSidebarOpen}
           toggle={handleToggle}
-          // distance={"lg"}
+          distance={"lg"}
         />
         <Sidebar isOpen={isSidebarOpen} />
       </div>

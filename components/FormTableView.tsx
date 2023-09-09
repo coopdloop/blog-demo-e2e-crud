@@ -15,7 +15,7 @@ export default function FormTableView() {
   }
 
   return (
-    <div className="flex flex-col sm:w-full md:w-full lg:w-full container">
+    <div className="flex flex-col container">
       <span className="flex sm:justify-start md:justify-between lg:justify-center w-full py-2 my-8 flex-wrap">
         <div className="px-8">
           <h1 className="text-2xl">Your assigned work</h1>
