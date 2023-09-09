@@ -21,17 +21,25 @@ export async function middleware(req: NextRequest) {
 
   if (!verifiedToken) {
     if (req.nextUrl.pathname.startsWith("/api/v1/")) {
-      if (bearerToken === validStaticBearerToken){
+      if (bearerToken === validStaticBearerToken) {
         return NextResponse.next();
-
       }
-      return NextResponse.json({ error: "You are not authorized. Please get a bearer" }, { status: 401 });
-    }else{
+      return NextResponse.json(
+        { error: "You are not authorized. Please get a bearer" },
+        { status: 401 }
+      );
+    } else {
     }
     return NextResponse.redirect(new URL("/login", req.url));
   }
 }
 
 export const config = {
-  matcher: ["/dashboard", "/api/v1/:path*", "/login"],
+  matcher: [
+    "/dashboard",
+    "/api/v1/:path*",
+    "/login",
+    "/user/:path*",
+    "/task/:path*",
+  ],
 };
