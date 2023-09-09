@@ -27,7 +27,7 @@ const formSchema = z.object({
   }),
 });
 
-const login: FC<loginProps> = ({}) => {
+const Login: FC<loginProps> = ({}) => {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
