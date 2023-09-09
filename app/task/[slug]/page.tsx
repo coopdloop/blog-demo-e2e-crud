@@ -54,12 +54,12 @@ export default function Page({ params }: { params: { slug: string } }) {
   //     }
   //   };
   return (
-    <>
+    <div className="container h-screen">
       {isLoading ? (
         <DataTable columns={columns} data={[]} />
       ) : (
         <DataTable columns={columns} data={tableData} />
       )}
-    </>
+    </div>
   );
 }

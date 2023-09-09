@@ -7,7 +7,7 @@ export default function TaskTableView() {
   const [submittedData, setSubmittedData] = useState<TasksArray>([]);
 
   return (
-    <div className="flex flex-col w-full pl-2">
+    <div className="container h-screen">
       <ViewTable updatedFormData={submittedData} />
     </div>
   );

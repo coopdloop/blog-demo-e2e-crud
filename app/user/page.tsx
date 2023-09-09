@@ -50,13 +50,13 @@ const UserTable: React.FC = ({ }) => {
   //   }
   // };
   return (
-    <>
+    <div className="container h-screen">
       {isLoading ? (
         <DataTable columns={columns} data={[]} />
       ) : (
         <DataTable columns={columns} data={tableData} />
       )}
-    </>
+    </div>
   );
 };
 

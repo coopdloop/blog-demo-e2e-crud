@@ -4,7 +4,7 @@ import { Sling as Hamburger } from "hamburger-react";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
-import { usePathname } from 'next/navigation'
+import { usePathname } from "next/navigation";
 import { userDataNormalSchema } from "@/types/api/tasks";
 type SidebarProps = {
   isOpen: boolean;
@@ -16,7 +16,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   }
 
   return (
-    <div className="h-full bg-purple-700">
+    <div className="h-full border-r-4 w-fit pr-4 sm:hidden">
       <ul className="justify-start flex flex-col h-full pt-4 text-center text-lg text-white">
         <li className="py-2">
           <a href="/">Home</a>
@@ -88,8 +88,8 @@ const VertNav: FC = ({}) => {
   };
 
   return (
-    <div>
-      <div className="h-full left-0 fixed w-1/6">
+    <div className="">
+      <div className="left-0 relative w-1/6 lg:hidden">
         <Hamburger
           toggled={isSidebarOpen}
           toggle={handleToggle}
@@ -97,8 +97,8 @@ const VertNav: FC = ({}) => {
         />
         <Sidebar isOpen={isSidebarOpen} />
       </div>
-      <div className="hidden lg:flex">
-        <nav className="fixed top-0 left-0 bottom-0 flex flex-col w-40 sm:max-w-xs pt-6 pb-8 bg-blue-400 overflow-y-auto">
+      <div className="hidden lg:flex h-full">
+        <nav className="top-0 left-0 bottom-0 flex flex-col w-40 sm:max-w-xs pt-6 pb-8 bg-blue-400 overflow-hidden">
           <div className="flex w-full items-center px-6 pb-6 mb-6 lg:border-b border-gray-100">
             <a className="text-xl text-white font-semibold" href="/">
               e2e crud

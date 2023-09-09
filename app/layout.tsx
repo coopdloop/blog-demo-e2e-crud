@@ -20,15 +20,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex container">
-          <VertNav />
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            <span >
-            {children}
-            </span>
-          </ThemeProvider>
-        </div>
-        <Toaster />
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            <div className="flex">
+              <VertNav />
+              {children}
+            </div>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
