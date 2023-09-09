@@ -104,4 +104,4 @@ const Login: FC<loginProps> = ({}) => {
   );
 };
 
-export default login;
+export default Login;
